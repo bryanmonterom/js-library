@@ -8,11 +8,27 @@
 </head>
 <body>
     <div class="form">
-<input type="text" name="title" id="title">
-<input type="text" name="author" id="author">
-<input type="number" name="pages" id="pages">
-<input type="checkbox" name="read" id="read">
-<input type="button" value="Save book" id="save">
+<form action="" method="post">
+    <div class="form-group">
+        <label for="title">Book Title</label>
+        <input placeholder="Book Title" type="text" name="title" id="title" required minlength="1">
+    </div>
+    <div class="form-group">
+        <label for="author">Author</label>
+        <input placeholder="Author" type="text" name="author" id="author" required>
+    </div>
+    <div class="form-group">
+        <label for="author">Pages</label>
+        <input placeholder="Pages" type="number" name="pages" id="pages" min="1">
+    </div>
+    <div class="form-group">
+        <label for="author">Have you read the book? </label>
+        <input type="checkbox" name="read" id="read">
+    </div>
+
+
+    <input type="button" value="Save book" id="save">
+</form>
     </div>
 
     <div class="table">
@@ -23,6 +39,7 @@
                 <td>Author</td>
                 <td>Pages</td>
                 <td>Read</td>
+                <td>Actions</td>
             </tr>
         </thead>
         <tbody id="tbody">
