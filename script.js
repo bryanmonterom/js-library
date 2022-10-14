@@ -5,19 +5,32 @@ let read = false;
 
 let myLibrary=[];
 
-function Book(title,author,pages, read){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.id=findId();
+class Book{
+    constructor (title,author,pages, read){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.id=findId();
+    }
+
 }
+
+
+
+// function Book(title,author,pages, read){
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.read = read;
+//     this.id=findId();
+// }
 
 
 function buildBtnRemove(id){
     var btn = document.createElement('input');
     btn.type = "button";
-    btn.className = "btn-remove";
+    btn.className = "btn remove";
     btn.value = "Remove";
     btn.id=id;
     btn.setAttribute('book-id',id);
@@ -30,8 +43,8 @@ function deleteBook(e){
     // let E = e.target.getAttribute('book-id');
     // console.log(E);
     const target = e.target.getAttribute('book-id');
-    myLibrary = myLibrary.filter((item)=> item.id != target);
-    tableBuilder(myLibrary);
+    myLibrary = myLibrary.filter((item)=> item.title != target);
+    tableBuilder();
 }
 function buildBtnStatus(read,id){
 
@@ -47,8 +60,12 @@ function buildBtnStatus(read,id){
 }
 
 function changeStatus(e){
+
     const target = e.target.getAttribute('book-id');
-    myLibrary[target-1].read = !myLibrary[target-1].read;
+    var book = myLibrary.findIndex((item)=> item.title == target);
+    console.log(book);
+    // console.log(myLibrary.indexOf(book))
+    myLibrary[book].read = !myLibrary[book].read;
     tableBuilder(myLibrary);
 
 }
@@ -58,7 +75,6 @@ function tableBuilder(){
     const tableBody = document.getElementById('tbody');
     tableBody.innerHTML= "";
     myLibrary.forEach(element => {
-
         let tr = document.createElement('tr');
         let tdTitle = document.createElement('td');
         tdTitle.textContent = element.title;
@@ -67,18 +83,15 @@ function tableBuilder(){
         let tdPages = document.createElement('td');
         tdPages.textContent = element.pages;
         const tdRead = document.createElement('td');
-        tdRead.appendChild(buildBtnStatus(element.read, element.id));
-
-        // tdRead.textContent = element.read;
+        tdRead.appendChild(buildBtnStatus(element.read, element.title));
         const tdActions = document.createElement('td');
-        tdActions.appendChild(buildBtnRemove(element.id));
+        tdActions.appendChild(buildBtnRemove(element.title));
         tr.appendChild(tdTitle);
         tr.appendChild(tdAuthor);
         tr.appendChild(tdPages);
         tr.appendChild(tdRead);
         tr.appendChild(tdActions);
         tableBody.appendChild(tr);
-
     });
 }
 
@@ -101,8 +114,8 @@ function addBookToLibrary(){
 
 
 function findId(){
-    let arrayLength = myLibrary.length == 0? 0: myLibrary.length;
-    return arrayLength+1;
+    let arrayLength = myLibrary.length == 0? 0: myLibrary.length-1;
+    return arrayLength;
 }
 
 function btnSaveEventListener(){
