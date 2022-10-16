@@ -3,7 +3,13 @@ let title = '';
 let pages = '';
 let read = false;
 
-let myLibrary=[];
+
+class Library {
+
+    constructor(myLibrary){
+        this.myLibrary = myLibrary ;
+    }
+}
 
 class Book{
     constructor (title,author,pages, read){
@@ -11,8 +17,12 @@ class Book{
         this.author = author;
         this.pages = pages;
         this.read = read;
-        this.id=findId();
     }
+
+ set FindId(myLibrary){
+    let arrayLength = myLibrary.length == 0? 0: myLibrary.length-1;
+        this.id = arrayLength;
+ }
 
 }
 
@@ -27,6 +37,15 @@ class Book{
 // }
 
 
+function deleteBook(e){
+        // let E = e.target.getAttribute('book-id');
+        // console.log(E);
+        const target = e.target.getAttribute('book-id');
+        myLibrary.myLibrary = myLibrary.myLibrary.filter((item)=> item.title != target);
+        tableBuilder(myLibrary.myLibrary);
+    }
+
+
 function buildBtnRemove(id){
     var btn = document.createElement('input');
     btn.type = "button";
@@ -39,13 +58,14 @@ function buildBtnRemove(id){
 }
 
 
-function deleteBook(e){
-    // let E = e.target.getAttribute('book-id');
-    // console.log(E);
-    const target = e.target.getAttribute('book-id');
-    myLibrary = myLibrary.filter((item)=> item.title != target);
-    tableBuilder();
-}
+// function deleteBook(e){
+//     // let E = e.target.getAttribute('book-id');
+//     // console.log(E);
+//     const target = e.target.getAttribute('book-id');
+//     myLibrary = myLibrary.filter((item)=> item.title != target);
+//     tableBuilder();
+// }
+
 function buildBtnStatus(read,id){
 
     let status = read == true? "Read" : "Not Read"
@@ -59,19 +79,9 @@ function buildBtnStatus(read,id){
     return btn;
 }
 
-function changeStatus(e){
-
-    const target = e.target.getAttribute('book-id');
-    var book = myLibrary.findIndex((item)=> item.title == target);
-    console.log(book);
-    // console.log(myLibrary.indexOf(book))
-    myLibrary[book].read = !myLibrary[book].read;
-    tableBuilder(myLibrary);
-
-}
 
 
-function tableBuilder(){
+function tableBuilder(myLibrary){
     const tableBody = document.getElementById('tbody');
     tableBody.innerHTML= "";
     myLibrary.forEach(element => {
@@ -102,26 +112,30 @@ author = document.getElementById('author').value;
  read = document.getElementById('read').checked;
 }
 
-function addBookToLibrary(){
-
-    fillBookInfoVars();
-    const newBook = new Book(title,author,pages,read)
-    myLibrary.push(newBook);
-    // console.log(myLibrary);
-    tableBuilder();
-}
 
 
 
-function findId(){
-    let arrayLength = myLibrary.length == 0? 0: myLibrary.length-1;
-    return arrayLength;
-}
 
-function btnSaveEventListener(){
-}
-
-tableBuilder();
-findId();
+let library = [];
+let myLibrary= new Library(library);
 let btn = document.getElementById('save').addEventListener('click',addBookToLibrary);
 // let btn = document.getElementById('form').addEventListener("submit", addBookToLibrary);
+
+function addBookToLibrary(){
+    fillBookInfoVars();
+    const newBook = new Book(title,author,pages,read)
+    newBook.FindId = library;
+    myLibrary.myLibrary.push(newBook);
+    tableBuilder(myLibrary.myLibrary);
+}
+
+
+function changeStatus(e){
+
+    const target = e.target.getAttribute('book-id');
+    var book = myLibrary.myLibrary.findIndex((item)=> item.title == target);
+    console.log(book);
+    myLibrary.myLibrary[book].read = !myLibrary.myLibrary[book].read;
+    tableBuilder(myLibrary.myLibrary);
+
+}
