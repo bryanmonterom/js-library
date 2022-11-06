@@ -28,6 +28,7 @@ h1{
     justify-items: center;
     align-content: center; */
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .form {
@@ -281,10 +282,19 @@ input.invalid {
 .addbtn{
     font-weight: bolder;
     font-size: 20px;
-    background-color: #009879;
+    color: white;
+    background-color: #36454f;
     border: none;
     padding: 5px;
+    margin: 5px;
+    height: 40px;
 }
+
+
+.addbtn:hover{
+opacity: 0.8;
+}
+
 
 @media only screen and (max-width: 600px) {
     .container{
