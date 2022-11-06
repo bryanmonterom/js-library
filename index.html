@@ -9,29 +9,74 @@
 </head>
 <body>
     <div class="container">
-        <h1>My Book Library</h1>
-        <p>This is a simple library app where you can add and delete books, change book status and see basic information.</p>
-        <div class="" id="form">
-        <form action="" method="post" class="form">
-        <div class="form-group">
-            <label for="title">Book Title</label>
-            <input placeholder="Book Title" type="text" name="title" id="title" required minlength="1">
+        <div class="header">
+            <div class="-header-items">
+                <h1>My Book Library</h1>
+           <p class="app-description">This is a simple library app where you can add and delete books, change book status and see basic information.</p>
+            </div>
+            <div class="-header-items">
+                <h2>Stats</h2>
+                <div class="stats">
+                    <div class="stat-info">
+                        <label for="">Watchlist:</label>
+                        <label id="watchlist">40</label>
+                    </div>
+                    <div class="stat-info">
+                        <label for="">Read:</label>
+                        <label id="readbadge">40</label>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="author">Author</label>
-            <input placeholder="Author" type="text" name="author" id="author" required>
+      
+        <input type="button" value="+ Add a new book ..." onclick="showModal()" class="addbtn">
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="create-title">Add new book</span>
+                <div class="modal-container">
+
+                    <div class="" id="form" novalidate>
+                        <form action="" method="post" class="form" id="formLibrary" >
+                        <div class="form-group">
+                            <!-- <label for="title">Book Title</label> -->
+                            <input placeholder="Book Title" type="text" name="title" id="title" data-validate="required" >
+                            <small role="alert" aria-hidden="true" data-validation-message="required">
+                                Please enter the book title.
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="author">Author</label> -->
+                            <input placeholder="Author" type="text" name="author" id="author" data-validate="required minLength" >
+                            <small role="alert" aria-hidden="true" data-validation-message="required">
+                                Please enter the Author name.
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="author">Pages</label> -->
+                            <input placeholder="Pages" type="number" name="pages" id="pages" min="1" data-validate="required">
+                            <small role="alert" aria-hidden="true" data-validation-message="required">
+                                Please enter quantity of pages.
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="author">Have you read the book? </label>
+                            <input type="checkbox" name="read" id="read" class="checkbox" >
+                        </div>
+                    <input type="submit" value="Save book" id="save" class="btn true">
+
+                    </form>
+
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="author">Pages</label>
-            <input placeholder="Pages" type="number" name="pages" id="pages" min="1">
-        </div>
-        <div class="form-group">
-            <label for="author">Have you read the book? </label>
-            <input type="checkbox" name="read" id="read" class="checkbox">
-        </div>
-        <input type="button" value="Save book" id="save" class="btn btn-submit">
-    </form>
-        </div>
+
+
+            </div>
+
+
+
+<!--      
         <div class="table">
             <table>
             <thead>
@@ -47,6 +92,10 @@
                     
             </tbody>
         </table>
+        </div> -->
+
+        <div class="cards-container" id="tbody">
+           
         </div>
 </div>
 
